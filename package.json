@@ -1,0 +1,17 @@
+{
+    "name": "Index",
+    "private": true,
+    "scripts": {
+        "commit": "npx git-cz"
+    },
+    "devDependencies": {
+        "commitizen": "^4.1.2",
+        "cz-conventional-changelog": "^3.2.0",
+        "lerna": "^3.22.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}
