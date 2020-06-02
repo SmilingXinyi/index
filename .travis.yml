@@ -15,5 +15,4 @@ deploy:
     email: smilingxinyi@gmail.com
     skip_cleanup: true
     on:
-        repo: smilingxinyi/index
         branch: master
