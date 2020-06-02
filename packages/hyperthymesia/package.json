@@ -23,8 +23,7 @@
         "lib"
     ],
     "publishConfig": {
-        "access": "public",
-        "registry": "http://registry.npm.com"
+        "access": "public"
     },
     "repository": {
         "type": "git",
