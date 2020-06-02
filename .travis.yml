@@ -11,7 +11,7 @@ before_deploy:
     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 deploy:
     provider: script
-    script: npx lerna publish
+    script: npx lerna publish from-package
     email: smilingxinyi@gmail.com
     skip_cleanup: true
     on:
