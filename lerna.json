@@ -5,7 +5,8 @@
     "version": "independent",
     "command": {
         "publish": {
-            "graphType": "all"
+            "graphType": "all",
+            "yes": true
         }
     }
 }
