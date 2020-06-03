@@ -43,13 +43,12 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             perf: jsonPerf
         };
 
-        this.info('init', {
-            ...sysInfo,
+        this.log('1', Type.Process, State.Loaded, {
             ...initialInfo
         });
     }
 
-    parseCookie(cookie: string) {
+    private parseCookie(cookie: string) {
         cookie = cookie.toLowerCase();
         const jsonCookie: any = {};
         cookie.split(';').forEach(item => {
@@ -65,7 +64,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         return jsonCookie;
     }
 
-    parseUserAgent(userAgent: string) {
+    private parseUserAgent(userAgent: string) {
         userAgent = userAgent.toLowerCase();
         let os, browser;
         if (userAgent.indexOf('windows phone') >= 0) {
@@ -119,7 +118,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         }
     }
 
-    parsePerformance(perf: any) {
+    private parsePerformance(perf: any) {
         const responseStart = perf.responseStart;
         const responseEnd = perf.responseEnd;
 
@@ -135,20 +134,16 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     };
 
 
-    log(id: string, t: Type = Type.Action, s: State = State.Load): void {
-        this.send(Level.Log, id, null, t, s);
+    log(id: string | number, t: Type = Type.Action, s: State = State.Load, data: any = null): void {
+        this.send(Level.Log, id, data, t, s);
     }
 
-    warn(id: string, t: Type = Type.Action, s: State = State.Load): void {
-        this.send(Level.Warn, id, null, t, s);
+    warn(id: string | number, t: Type = Type.Action, s: State = State.Load, data: any = null): void {
+        this.send(Level.Warn, id, data, t, s);
     }
 
-    error(id: string, t: Type = Type.Action, s: State = State.Load): void {
-        this.send(Level.Error, id, null, t, s);
-    }
-
-    info(id: string | number, data: any, t: Type = Type.Action, s: State = State.Load): void {
-        this.send(Level.Info, id, data, t, s);
+    error(id: string | number, t: Type = Type.Action, s: State = State.Load, data: any = null): void {
+        this.send(Level.Error, id, data, t, s);
     }
 
     private send(lv: Level, id: string | number, data: any, t: Type, s: State): void {
@@ -159,11 +154,12 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             id,
             t,
             s,
-            n: Date.now()
+            d: Date.now(),
+            i: encodeURIComponent(JSON.stringify(this.sysInfo))
         };
 
         if (data) {
-            payload.data = encodeURIComponent(JSON.stringify(data));
+            payload.p = encodeURIComponent(JSON.stringify(data));
         }
 
         const img = new Image();
@@ -178,3 +174,5 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         };
     }
 }
+
+export {Level, State, Type} from './interfaces';

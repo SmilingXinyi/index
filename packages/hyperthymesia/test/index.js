@@ -8,8 +8,8 @@
 import Hyperthymesia from '../src/hyperthymesia';
 
 const Hyper = Hyperthymesia.getInstance({
-    targetUrl: 'http://xchain.com/v.gif',
-    id: 49,
+    targetUrl: 'http://bjhw-bac-orp-xchain-orp-137055.bjhw.baidu.com:8200/n/ide/v',
+    id: 120115,
     cookieKeys: ['BAIDUID'],
     queryKeys: ['ch']
 });

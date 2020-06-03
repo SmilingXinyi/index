@@ -14,7 +14,10 @@ const TerserPlugin = require("terser-webpack-plugin");
 // webpack conf
 const prodConf = {
     output: {
-        path: path.join(process.cwd(), "lib")
+        path: path.join(process.cwd(), "lib"),
+        filename: '[name].js',
+        library: '[name]',
+        libraryTarget: 'umd'
     },
     mode: "production",
     optimization: {

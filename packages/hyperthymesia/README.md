@@ -22,3 +22,7 @@ const hyperthymesia = require('hyperthymesia');
 // headerSize - hs
 // dnsLookupTime - dns
 ```
+
+``` crontab 需要的门神权限
+http://devops.baidu.com/new/baas/bils_login_help.md#TMUX_SCREEN_SPECIFICATION
+```

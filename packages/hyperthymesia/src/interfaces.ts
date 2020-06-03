@@ -1,6 +1,7 @@
 /**
  * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
  */
+
 export enum Type {
     Action,
     Process,
@@ -16,20 +17,15 @@ export enum State {
 }
 
 export enum Level {
-    Info,
     Log,
     Warn,
     Error
 }
 
 export default interface HyperthymesiaInterface {
-    log(id: string, t: Type, s: State): void;
-
-    warn(id: string, t: Type, s: State): void;
-
-    error(id: string, t: Type, s: State): void;
-
-    info(id: string, data: any, t: Type, s: State): void;
+    log(id: string | number, t: Type, s: State, data: any): void
+    warn(id: string | number, t: Type, s: State, data: any): void;
+    error(id: string | number, t: Type, s: State, data: any): void;
 }
 
 export interface HyperthymesiaOptions {
