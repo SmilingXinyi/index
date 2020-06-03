@@ -8,8 +8,8 @@
     "main": "lib/hyperthymesia.js",
     "types": "lib/hyperthymesia.d.ts",
     "scripts": {
-        "start": "./node_modules/.bin/webpack-dev-server --colors --open --progress --config ./scripts/webpack.dev.js",
-        "build": "./node_modules/.bin/webpack --progress --config ./scripts/webpack.prod.js",
+        "start": "npx webpack-dev-server --colors --open --progress --config ./scripts/webpack.dev.js",
+        "build": "npx webpack --progress --config ./scripts/webpack.prod.js",
         "doc": "rm -rf docs && typedoc --mode file --out docs src",
         "lint": "eslint src/**",
         "test": "jest",
