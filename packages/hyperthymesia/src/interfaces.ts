@@ -22,12 +22,6 @@ export enum Level {
     Error
 }
 
-export default interface HyperthymesiaInterface {
-    log(id: string | number, t: Type, s: State, data: any): void
-    warn(id: string | number, t: Type, s: State, data: any): void;
-    error(id: string | number, t: Type, s: State, data: any): void;
-}
-
 export interface HyperthymesiaOptions {
     /**
      * Request url likes '/v.gif'
@@ -48,4 +42,10 @@ export interface HyperthymesiaOptions {
      * Require query fields
      */
     queryKeys: string[];
+}
+
+export default interface HyperthymesiaInterface {
+    log(id: string | number, t: Type, s: State, data: any): void;
+    warn(id: string | number, t: Type, s: State, data: any): void;
+    error(id: string | number, t: Type, s: State, data: any): void;
 }

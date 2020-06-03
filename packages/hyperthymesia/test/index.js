@@ -7,9 +7,11 @@
 
 import Hyperthymesia from '../src/hyperthymesia';
 
-const Hyper = Hyperthymesia.getInstance({
-    targetUrl: 'http://bjhw-bac-orp-xchain-orp-137055.bjhw.baidu.com:8200/n/ide/v',
+const h = Hyperthymesia.getInstance({
+    targetUrl: '/v.gif',
     id: 120115,
     cookieKeys: ['BAIDUID'],
     queryKeys: ['ch']
 });
+
+h.error('bi001', {hello: 'world'});
