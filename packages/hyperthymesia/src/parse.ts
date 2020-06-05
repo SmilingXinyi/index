@@ -77,16 +77,22 @@ export function parseUserAgent(userAgent: string) {
 }
 
 export function parsePerformance(perf: any) {
-    const {responseStart} = perf;
-    const {responseEnd} = perf;
+    try {
+        const {responseStart} = perf;
+        const {responseEnd} = perf;
 
-    return {
-        ft: responseEnd - perf.fetchStart,
-        wt: perf.workerStart > 0 ? responseEnd - perf.workerStart : 0,
-        tt: responseEnd - perf.requestStart,
-        dt: responseEnd - responseStart,
-        ttfb: responseStart - perf.requestStart,
-        hs: Math.abs(perf.transferSize - perf.encodedBodySize || 0),
-        dns: perf.domainLookupEnd - perf.domainLookupStart
-    };
+        return {
+            ft: responseEnd - perf.fetchStart,
+            wt: perf.workerStart > 0 ? responseEnd - perf.workerStart : 0,
+            tt: responseEnd - perf.requestStart,
+            dt: responseEnd - responseStart,
+            ttfb: responseStart - perf.requestStart,
+            hs: Math.abs(perf.transferSize - perf.encodedBodySize || 0),
+            dns: perf.domainLookupEnd - perf.domainLookupStart
+        };
+    }
+    catch (e) {
+        return {};
+    }
+
 }
