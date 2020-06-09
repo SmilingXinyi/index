@@ -9,12 +9,25 @@ import HyperthymesiaInstance, {
 import {parseCookie, parsePerformance, parseUserAgent} from './parse';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
+    /**
+     * Instance
+     */
     static instance: Hyperthymesia;
 
+    /**
+     * System infomations
+     */
     private sysInfo: any;
 
+    /**
+     * Log server url
+     */
     private targetUrl: string;
 
+    /**
+     * Service initial and get instance
+     * @param opts
+     */
     public static getInstance(opts: HyperthymesiaOptions): Hyperthymesia {
         if (!this.instance) {
             this.instance = new this(opts);
@@ -22,9 +35,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         return this.instance;
     }
 
+    /**
+     * Constructor
+     * @param opts
+     */
     constructor(opts: HyperthymesiaOptions) {
         const {
-            targetUrl, id, cookieKeys, queryKeys
+            targetUrl, pid, cookieKeys, queryKeys
         } = opts;
         const {search: query, href} = window.location;
         const {userAgent, platform, language} = navigator;
@@ -38,11 +55,17 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.targetUrl = targetUrl;
 
         const sysInfo: any = {
-            id
+            pid
         };
 
-        cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
-        queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
+        if (cookieKeys) {
+            cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
+        }
+
+        if (queryKeys) {
+            queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
+        }
+
         this.sysInfo = {...sysInfo};
 
         const initialInfo = {
@@ -79,6 +102,14 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.send(Level.Error, id, data, t, s);
     }
 
+    /**
+     *
+     * @param lv - log level
+     * @param id - log id
+     * @param data - data
+     * @param t - log type
+     * @param s - log state
+     */
     private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load): void {
         const target = this.targetUrl;
 
@@ -108,4 +139,4 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     }
 }
 
-export {Level, State, Type} from './interfaces';
+export {State, Type} from './interfaces';

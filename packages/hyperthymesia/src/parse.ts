@@ -2,13 +2,17 @@
  * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
  */
 
+/**
+ * Cookie parsing
+ * @param cookie
+ */
 export function parseCookie(cookie: string): any {
     const cookieStr = cookie.toLowerCase();
     const jsonCookie: any = {};
     cookieStr.split(';').forEach(item => {
         try {
             // @ts-ignore
-            const [ori, key, value] = item.match(/^(.+?)=([^;]*)/i);
+            const [_, key, value] = item.match(/^(.+?)=([^;]*)/i);
             jsonCookie[key.trim()] = value.trim();
         } catch (e) {
             return null;
@@ -17,6 +21,10 @@ export function parseCookie(cookie: string): any {
     return jsonCookie;
 }
 
+/**
+ * User-Agent parsing
+ * @param userAgent
+ */
 export function parseUserAgent(userAgent: string): any {
     const userAgentStr = userAgent.toLowerCase();
     let os; let
@@ -44,10 +52,8 @@ export function parseUserAgent(userAgent: string): any {
     }
 
     if (userAgentStr.indexOf('edge/') >= 0 || userAgentStr.indexOf('iemobile/') >= 0) {
-        // Unreliable, different versions use EdgeHTML, Webkit, Blink, etc.
         browser = 'EDGE';
     } else if (userAgentStr.indexOf('opera mini') >= 0) {
-        // Unreliable, different modes use Presto, WebView, Webkit, etc.
         browser = 'OPERA';
     } else if (userAgentStr.indexOf('firefox/') >= 0) {
         browser = 'Firefox';
@@ -79,6 +85,10 @@ export function parseUserAgent(userAgent: string): any {
     };
 }
 
+/**
+ * Performance parsing
+ * @param perf
+ */
 export function parsePerformance(perf: any): any {
     try {
         const {responseStart} = perf;
@@ -93,8 +103,7 @@ export function parsePerformance(perf: any): any {
             hs: Math.abs(perf.transferSize - perf.encodedBodySize || 0),
             dns: perf.domainLookupEnd - perf.domainLookupStart
         };
-    }
-    catch (e) {
+    } catch (e) {
         return {};
     }
 }
