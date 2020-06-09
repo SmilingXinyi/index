@@ -1,5 +1,11 @@
+/**
+ * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
+ */
+
 import querystring from 'query-string';
-import HyperthymesiaInstance, {HyperthymesiaOptions, Level, State, Type} from './interfaces';
+import HyperthymesiaInstance, {
+    HyperthymesiaOptions, Level, State, Type
+} from './interfaces';
 import {parseCookie, parsePerformance, parseUserAgent} from './parse';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
@@ -35,9 +41,8 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             id
         };
 
-        cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey]);
-        queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey]);
-
+        cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
+        queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
         this.sysInfo = {...sysInfo};
 
         const initialInfo = {

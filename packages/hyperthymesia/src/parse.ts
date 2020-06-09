@@ -1,5 +1,8 @@
+/**
+ * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
+ */
 
-export function parseCookie(cookie: string) {
+export function parseCookie(cookie: string): any {
     const cookieStr = cookie.toLowerCase();
     const jsonCookie: any = {};
     cookieStr.split(';').forEach(item => {
@@ -14,7 +17,7 @@ export function parseCookie(cookie: string) {
     return jsonCookie;
 }
 
-export function parseUserAgent(userAgent: string) {
+export function parseUserAgent(userAgent: string): any {
     const userAgentStr = userAgent.toLowerCase();
     let os; let
         browser;
@@ -76,7 +79,7 @@ export function parseUserAgent(userAgent: string) {
     };
 }
 
-export function parsePerformance(perf: any) {
+export function parsePerformance(perf: any): any {
     const {responseStart} = perf;
     const {responseEnd} = perf;
 

@@ -16,6 +16,7 @@ module.exports = {
         ecmaVersion: 2018,
         sourceType: 'module'
     },
+    ignorePatterns: ['*.test.ts', 'node_modules/*', 'scripts/*'],
     plugins: ['@typescript-eslint'],
     rules: {
         'indent': ['error', 4],

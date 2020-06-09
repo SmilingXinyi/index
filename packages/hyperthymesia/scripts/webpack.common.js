@@ -1,5 +1,4 @@
 /**
- * @file (webpack.common)
  * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2019/12/5
  */
 
