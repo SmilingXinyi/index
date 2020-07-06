@@ -4,8 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.4.0](https://github.com/SmilingXinyi/index/compare/v1.3.0...v1.4.0) (2020-07-06)
 
-## 1.3.0 (2020-07-06)
-
 
 ### Features
 
