@@ -114,6 +114,14 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.send(Level.Error, id, data, t, s);
     }
 
+    /**
+     *
+     * @param lv - log level
+     * @param id - log id
+     * @param data - data
+     * @param t - log type
+     * @param s - log state
+     */
     private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load, skipCache?: boolean): void {
         if (this.initialized) {
             if (!skipCache && this.cacheList.length > 0) {
