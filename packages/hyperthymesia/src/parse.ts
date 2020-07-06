@@ -1,3 +1,6 @@
+/**
+ * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
+ */
 
 export function parseCookie(cookie: string) {
     const cookieStr = cookie.toLowerCase();

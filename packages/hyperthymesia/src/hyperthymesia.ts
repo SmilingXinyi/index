@@ -1,13 +1,19 @@
+/**
+ * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/6/2
+ */
+
 import querystring from 'query-string';
 import HyperthymesiaInstance, {HyperthymesiaOptions, Level, State, Type} from './interfaces';
 import {parseCookie, parsePerformance, parseUserAgent} from './parse';
+import {genFingerID, genRandomInt} from './utils';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
     static instance: Hyperthymesia;
 
     private sysInfo: any;
-
     private targetUrl: string;
+    private cacheList: any[];
+    private initialized: boolean;
 
     public static getInstance(opts: HyperthymesiaOptions): Hyperthymesia {
         if (!this.instance) {
@@ -30,9 +36,12 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         const jsonQuery = querystring.parse(query);
 
         this.targetUrl = targetUrl;
+        this.cacheList = [];
+        this.initialized = false;
 
         const sysInfo: any = {
-            id
+            id,
+            lid : jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999)
         };
 
         cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey]);
@@ -48,8 +57,14 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             perf: jsonPerf
         };
 
-        this.log('1', Type.Process, State.Loaded, {
-            ...initialInfo
+        this.initial(initialInfo);
+    }
+
+    private async initial(info: any) {
+        this.sysInfo.fin2 = await genFingerID();
+        this.initialized = true;
+        this.log('init', Type.Process, State.Loaded, {
+            ...info
         });
     }
 
@@ -74,7 +89,25 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.send(Level.Error, id, data, t, s);
     }
 
-    private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load): void {
+    private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load, skipCache?: boolean): void {
+        if (this.initialized) {
+            if (!skipCache && this.cacheList.length > 0) {
+                // @ts-ignore
+                if (window.requestIdleCallback) {
+                    // @ts-ignore
+                    window.requestIdleCallback(() => this.send.apply(this, [...this.cacheList.shift(), true]))
+                }
+                else {
+                    // @ts-ignore
+                    setTimeout(() => this.send.apply(this, [...this.cacheList.shift(), true]), 0)
+                }
+            }
+        }
+        else {
+            this.cacheList.push(arguments);
+            return;
+        }
+
         const target = this.targetUrl;
 
         const payload: any = {

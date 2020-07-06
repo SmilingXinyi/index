@@ -55,6 +55,8 @@
         "webpack-merge": "^4.2.2"
     },
     "dependencies": {
+        "@types/fingerprintjs2": "^2.0.0",
+        "fingerprintjs2": "^2.1.0",
         "query-string": "^6.12.1"
     },
     "config": {
