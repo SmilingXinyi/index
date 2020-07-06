@@ -1,4 +1,6 @@
 {
+    "name": "Hyperthymesia",
     "mode": "file",
-    "out": "docs"
+    "out": "docs",
+    "exclude": ["src/parse.ts"]
 }

@@ -3,18 +3,34 @@
  */
 
 import querystring from 'query-string';
-import HyperthymesiaInstance, {HyperthymesiaOptions, Level, State, Type} from './interfaces';
+import HyperthymesiaInstance, {
+    HyperthymesiaOptions, Level, State, Type
+} from './interfaces';
 import {parseCookie, parsePerformance, parseUserAgent} from './parse';
 import {genFingerID, genRandomInt} from './utils';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
+    /**
+     * Instance
+     */
     static instance: Hyperthymesia;
 
+    /**
+     * System infomations
+     */
     private sysInfo: any;
+
+    /**
+     * Log server url
+     */
     private targetUrl: string;
     private cacheList: any[];
     private initialized: boolean;
 
+    /**
+     * Service initial and get instance
+     * @param opts
+     */
     public static getInstance(opts: HyperthymesiaOptions): Hyperthymesia {
         if (!this.instance) {
             this.instance = new this(opts);
@@ -22,9 +38,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         return this.instance;
     }
 
+    /**
+     * Constructor
+     * @param opts
+     */
     constructor(opts: HyperthymesiaOptions) {
         const {
-            targetUrl, id, cookieKeys, queryKeys
+            targetUrl, pid, cookieKeys, queryKeys
         } = opts;
         const {search: query, href} = window.location;
         const {userAgent, platform, language} = navigator;
@@ -40,12 +60,17 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.initialized = false;
 
         const sysInfo: any = {
-            id,
-            lid : jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999)
+            lid : jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
+            pid
         };
 
-        cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey]);
-        queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey]);
+        if (cookieKeys) {
+            cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
+        }
+
+        if (queryKeys) {
+            queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
+        }
 
         this.sysInfo = {...sysInfo};
 
@@ -136,4 +161,4 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     }
 }
 
-export {Level, State, Type} from './interfaces';
+export {State, Type} from './interfaces';

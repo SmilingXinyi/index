@@ -14,7 +14,7 @@
         "lint": "eslint src/**",
         "test": "jest",
         "commit": "npx git-cz",
-        "release": "standard-version -a"
+        "release": "standard-version"
     },
     "directories": {
         "lib": "lib",
