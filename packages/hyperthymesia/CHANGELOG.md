@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/SmilingXinyi/index/compare/v1.4.0...v1.5.0) (2020-07-10)
+
+
+### Features
+
+* 🎸 hyperthymesia - optimized payload data format ([f59805e](https://github.com/SmilingXinyi/index/commit/f59805e89b73c60f60d6172909aa3d9ab635132b))
+
+
+### Bug Fixes
+
+* changelog.md fix ([ba88e56](https://github.com/SmilingXinyi/index/commit/ba88e5699bf9f0aceddbbd1a1f7dfb533fdfa226))
 
 ## [1.4.0](https://github.com/SmilingXinyi/index/compare/v1.3.0...v1.4.0) (2020-07-06)
 
