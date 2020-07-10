@@ -149,16 +149,22 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             t,
             s,
             d: Date.now(),
-            i: encodeURIComponent(JSON.stringify(this.sysInfo))
+            i: JSON.stringify(this.sysInfo)
         };
 
         if (data) {
-            payload.p = encodeURIComponent(JSON.stringify(data));
+            payload.p = JSON.stringify(data);
         }
 
         const img = new Image();
         const timer = setTimeout(() => {
-            img.src = `${target}?${Object.keys(payload).map(key => `${key}=${payload[key]}`).join('&')}`;
+            img.src = `${target}?${
+                querystring.stringify(
+                    payload, {
+                        skipEmptyString: true
+                    }
+                )
+            }`;
         }, 0);
 
         img.onload = img.onerror = img.onabort = () => {
