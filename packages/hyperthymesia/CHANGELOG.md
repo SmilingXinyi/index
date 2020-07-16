@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/SmilingXinyi/index/compare/v1.5.1...v1.5.2) (2020-07-16)
+
+
+### Bug Fixes
+
+* 🐛 export default ([977622c](https://github.com/SmilingXinyi/index/commit/977622ca74048753b0ce9cce116fb53ebd80f553))
+
 ### [1.5.1](https://github.com/SmilingXinyi/index/compare/v1.5.0...v1.5.1) (2020-07-16)
 
 
