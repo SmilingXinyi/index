@@ -16,7 +16,8 @@ const prodConf = {
         path: path.join(process.cwd(), 'lib'),
         filename: '[name].js',
         library: 'Hyperthymesia',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        libraryExport: 'default'
     },
     mode: 'production',
     optimization: {
