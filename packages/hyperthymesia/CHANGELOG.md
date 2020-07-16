@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/SmilingXinyi/index/compare/v1.5.0...v1.5.1) (2020-07-16)
+
+
+### Bug Fixes
+
+* 🐛 module name of the minimize file ([1c52e57](https://github.com/SmilingXinyi/index/commit/1c52e57626b42e9e1c6420f3c358efc37260d36e))
+
 ## [1.5.0](https://github.com/SmilingXinyi/index/compare/v1.4.0...v1.5.0) (2020-07-10)
 
 
