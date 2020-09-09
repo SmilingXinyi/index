@@ -26,6 +26,7 @@ module.exports = {
         'space-in-parens': ['error', 'never'],
         'space-infix-ops': 'error',
         'object-curly-spacing': 'off',
+        'prefer-rest-params': 'warn',
         'max-len': ['error', {code: 120, ignoreUrls: true}],
         'import/extensions': [
             'warn',

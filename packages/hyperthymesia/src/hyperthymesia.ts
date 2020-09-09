@@ -27,7 +27,15 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      * Log server url
      */
     private targetUrl: string;
+
+    /**
+     * Log cache list
+     */
     private cacheList: any[];
+
+    /**
+     * Service is initialized
+     */
     private initialized: boolean;
 
     /**
@@ -63,7 +71,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.initialized = false;
 
         const sysInfo: any = {
-            lid : jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
+            lid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
             pid
         };
 
@@ -151,21 +159,26 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      * @param s - log state
      * @param skipCache - ~~wait for initialization to complete and start send cachelist~~
      */
-    private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load, skipCache?: boolean): void {
+    private send(
+        lv: Level,
+        id: string | number,
+        data: any,
+        t: Type = Type.Action,
+        s: State = State.Load,
+        skipCache?: boolean
+    ): void {
         if (this.initialized) {
             if (!skipCache && this.cacheList.length > 0) {
                 // @ts-ignore
                 if (window.requestIdleCallback) {
                     // @ts-ignore
                     window.requestIdleCallback(() => this.send.apply(this, [...this.cacheList.shift(), true]))
-                }
-                else {
+                } else {
                     // @ts-ignore
                     setTimeout(() => this.send.apply(this, [...this.cacheList.shift(), true]), 0)
                 }
             }
-        }
-        else {
+        } else {
             this.cacheList.push(arguments);
             return;
         }
