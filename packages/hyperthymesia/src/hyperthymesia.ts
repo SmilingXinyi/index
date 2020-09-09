@@ -3,11 +3,14 @@
  */
 
 import querystring from 'query-string';
-import HyperthymesiaInstance, {
+import {
     HyperthymesiaOptions, Level, State, Type
-} from './interfaces';
+} from './types';
+import HyperthymesiaInstance from './interfaces';
 import {parseCookie, parsePerformance, parseUserAgent} from './parse';
 import {genFingerID, genRandomInt} from './utils';
+
+export {State, Type} from './types';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
@@ -85,6 +88,10 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.initial(initialInfo);
     }
 
+    /**
+     * Initialization
+     * @param info - initialization log infomation
+     */
     private async initial(info: any) {
         this.sysInfo.fin2 = await genFingerID();
         this.initialized = true;
@@ -93,6 +100,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         });
     }
 
+    /**
+     * Normal log
+     * @param id - log ID
+     * @param t - log type
+     * @param s - log state
+     * @param data - payload data
+     */
     log(id: string | number, t: Type, s: State, data: any = null): void {
         if (arguments.length === 2 && typeof t !== 'number') {
             return this.send(Level.Log, id, t);
@@ -100,6 +114,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.send(Level.Log, id, data, t, s);
     }
 
+    /**
+     * Warning log
+     * @param id - log ID
+     * @param t - log type
+     * @param s - log state
+     * @param data - payload data
+     */
     warn(id: string | number, t: Type, s: State, data: any = null): void {
         if (arguments.length === 2 && typeof t !== 'number') {
             return this.send(Level.Warn, id, t);
@@ -107,6 +128,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.send(Level.Warn, id, data, t, s);
     }
 
+    /**
+     * Failure log
+     * @param id - log ID
+     * @param t - log type
+     * @param s - log state
+     * @param data - payload data
+     */
     error(id: string | number, t: Type, s: State, data: any = null): void {
         if (arguments.length === 2 && typeof t !== 'number') {
             return this.send(Level.Error, id, t);
@@ -115,12 +143,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     }
 
     /**
-     *
+     * Send log
      * @param lv - log level
-     * @param id - log id
+     * @param id - log ID
      * @param data - data
      * @param t - log type
      * @param s - log state
+     * @param skipCache - ~~wait for initialization to complete and start send cachelist~~
      */
     private send(lv: Level, id: string | number, data: any, t: Type = Type.Action, s: State = State.Load, skipCache?: boolean): void {
         if (this.initialized) {
@@ -174,5 +203,3 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         };
     }
 }
-
-export {State, Type} from './interfaces';

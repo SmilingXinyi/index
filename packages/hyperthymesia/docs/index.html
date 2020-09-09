@@ -68,14 +68,14 @@
 					<h1>Hyperthymesia</h1>
 				</a>
 				<p>Logging library for web</p>
-				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting Started</h2>
 				</a>
 				<a href="#install-package" id="install-package" style="color: inherit; text-decoration: none;">
 					<h3>Install package</h3>
 				</a>
 				<blockquote>
-					<p>npm install --save hyperthymesia</p>
+					<p>npm i hyperthymesia</p>
 				</blockquote>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h3>Example</h3>
@@ -89,12 +89,21 @@
     <span class="hljs-attr">queryKeys</span>: []
 });
 
+<span class="hljs-comment">// normal log</span>
 h.log(<span class="hljs-string">'demo1'</span>);
+h.log(<span class="hljs-number">123</span>);
+
+<span class="hljs-comment">// warning log</span>
 h.warn(<span class="hljs-string">'demo2'</span>, {<span class="hljs-attr">foo</span>: <span class="hljs-number">1</span>});
 h.warn(<span class="hljs-string">'demo3'</span>, Type.Error, State.Loaded);
+
+<span class="hljs-comment">// error log</span>
 h.error(<span class="hljs-string">'demo4'</span>, Type.Error, State.Faild, <span class="hljs-string">'hello world'</span>);</code></pre>
-				<a href="#performance" id="performance" style="color: inherit; text-decoration: none;">
-					<h2>Performance</h2>
+				<a href="#performance-data" id="performance-data" style="color: inherit; text-decoration: none;">
+					<h2>Performance data</h2>
+				</a>
+				<a href="#key-and-field-mapping" id="key-and-field-mapping" style="color: inherit; text-decoration: none;">
+					<h5>Key and field mapping</h5>
 				</a>
 				<table>
 					<thead>
@@ -162,21 +171,12 @@ h.error(<span class="hljs-string">'demo4'</span>, Type.Error, State.Faild, <span
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/hyperthymesiaoptions.html" class="tsd-kind-icon">Hyperthymesia<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#gen" class="tsd-kind-icon">gen</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#genfingerid" class="tsd-kind-icon">gen<wbr>FingerID</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#genrandomint" class="tsd-kind-icon">gen<wbr>Random<wbr>Int</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 </div>
-<footer class="with-border-bottom">
+<footer>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -199,9 +199,6 @@ h.error(<span class="hljs-string">'demo4'</span>, Type.Error, State.Faild, <span
 		</div>
 	</div>
 </footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>

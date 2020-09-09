@@ -2,11 +2,11 @@
 
 Logging library for web
 
-## Usage
+## Getting Started
 
 ### Install package
 
-> npm install --save hyperthymesia
+> npm i hyperthymesia
 
 ### Example
 
@@ -20,13 +20,21 @@ const h = Hyperthymesia.getInstance({
     queryKeys: []
 });
 
+// normal log
 h.log('demo1');
+h.log(123);
+
+// warning log
 h.warn('demo2', {foo: 1});
 h.warn('demo3', Type.Error, State.Loaded);
+
+// error log
 h.error('demo4', Type.Error, State.Faild, 'hello world');
 ```
 
-## Performance
+## Performance data
+
+##### Key and field mapping
 
 | key | field |
 |:---:|:------|
