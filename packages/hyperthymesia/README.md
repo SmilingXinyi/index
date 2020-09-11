@@ -45,3 +45,11 @@ h.error('demo4', Type.Error, State.Faild, 'hello world');
 |ttfb|timeToFirstByte|
 |hs|headerSize|
 |dns|dnsLookupTime|
+
+## Todo
+
+- [ ] Nodejs support
+- [ ] Replace state with log level
+- [ ] Disable fin2
+- [ ] The version field
+- [ ] Data formatting
