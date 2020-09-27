@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/SmilingXinyi/index/compare/v1.5.2...v1.6.0) (2020-09-27)
+
+
+### Features
+
+* 🎸 parse default pathname field used for log ([77991cd](https://github.com/SmilingXinyi/index/commit/77991cd436fd31e88f64c25328f1214458a11bf3))
+
+
+### Bug Fixes
+
+* 🐛 package-lock ([9595e77](https://github.com/SmilingXinyi/index/commit/9595e77048f17baa57164606342dd611282bb6f5))
+
 ### [1.5.2](https://github.com/SmilingXinyi/index/compare/v1.5.1...v1.5.2) (2020-07-16)
 
 

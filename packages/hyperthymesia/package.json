@@ -1,6 +1,6 @@
 {
     "name": "hyperthymesia",
-    "version": "1.5.2",
+    "version": "1.6.0",
     "description": "> TODO: description",
     "author": "SmilingXinyi <smilingxinyi@gmail.com>",
     "homepage": "https://github.com/SmilingXinyi/index#readme",
@@ -50,7 +50,7 @@
         "husky": "^4.2.5",
         "jest": "^26.0.1",
         "jest-environment-jsdom-sixteen": "^1.0.3",
-        "standard-version": "^8.0.0",
+        "standard-version": "^9.0.0",
         "ts-jest": "^26.1.0",
         "ts-loader": "^7.0.5",
         "typedoc": "^0.17.7",
