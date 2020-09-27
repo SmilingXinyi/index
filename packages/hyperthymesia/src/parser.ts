@@ -27,7 +27,8 @@ export function parseCookie(cookie: string): any {
  */
 export function parseUserAgent(userAgent: string): any {
     const userAgentStr = userAgent.toLowerCase();
-    let os; let
+    let os;
+    let
         browser;
     if (userAgentStr.indexOf('windows phone') >= 0) {
         os = 'Windows Phone';
@@ -106,4 +107,49 @@ export function parsePerformance(perf: any): any {
     } catch (e) {
         return {};
     }
+}
+
+type MatchItem = {
+    key: string,
+    index: number
+}
+
+type MathResultItem = {
+    [key: string]: string
+}
+
+/**
+ * URL Pathname Parsing
+ * @param schema
+ * @param pathname
+ */
+export function parsePathname(schema: string, pathname: string): any {
+    if (!schema.startsWith('/', 0)) {
+        throw 'schema dose not start with "/"';
+    }
+
+    if (!pathname.startsWith('/', 0)) {
+        throw 'pathname dose not start with "/"';
+    }
+
+    const pathArr = pathname.split('/').slice(1);
+    const schemaArr = schema.split('/').slice(1);
+
+    const matchList = schemaArr.reduce((accumulator, current, index) => {
+        if (current.startsWith(':', 0)) {
+            accumulator.push({
+                key: current.slice(1),
+                index
+            })
+        }
+        return accumulator;
+    }, [] as Array<MatchItem>);
+
+    // @ts-ignore
+    const params = matchList.reduce((accumulator, current) => {
+        accumulator[current.key] = pathArr[current.index]
+        return accumulator;
+    }, {} as MathResultItem);
+
+    return params;
 }

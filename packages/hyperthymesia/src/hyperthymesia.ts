@@ -7,7 +7,9 @@ import {
     HyperthymesiaOptions, Level, State, Type
 } from './types';
 import HyperthymesiaInstance from './interfaces';
-import {parseCookie, parsePerformance, parseUserAgent} from './parse';
+import {
+    parseCookie, parsePerformance, parseUserAgent, parsePathname
+} from './parser';
 import {genFingerID, genRandomInt} from './utils';
 
 export {State, Type} from './types';
@@ -40,7 +42,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
 
     /**
      * Service initial and get instance
-     * @param opts
+     * @param {Hyperthymesia} opts - options
      */
     public static getInstance(opts: HyperthymesiaOptions): Hyperthymesia {
         if (!this.instance) {
@@ -55,12 +57,17 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      */
     constructor(opts: HyperthymesiaOptions) {
         const {
-            targetUrl, pid, cookieKeys, queryKeys
+            targetUrl, pid, cookieKeys, queryKeys, pathnameKeys
         } = opts;
-        const {search: query, href} = window.location;
+        const {search: query, href, pathname} = window.location;
         const {userAgent, platform, language} = navigator;
         const {cookie} = document;
-        const initialPerformance = performance.getEntriesByType('navigation')[0];
+        let initialPerformance;
+        try {
+            initialPerformance = performance.getEntriesByType('navigation')[0]
+        } catch (e) {
+            initialPerformance = null;
+        }
         const jsonCookie = parseCookie(cookie);
         const jsonUA = parseUserAgent(userAgent);
         const jsonPerf = parsePerformance(initialPerformance);
@@ -72,15 +79,22 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
 
         const sysInfo: any = {
             lid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
-            pid
+            pid: pid.toString()
         };
 
         if (cookieKeys) {
-            cookieKeys.forEach(ckey => sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
+            cookieKeys.forEach(ckey =>
+                sysInfo[`c_${ckey.toLowerCase()}`] = jsonCookie[ckey.toLowerCase()]);
         }
 
         if (queryKeys) {
-            queryKeys.forEach(qkey => sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
+            queryKeys.forEach(qkey =>
+                sysInfo[`q_${qkey.toLowerCase()}`] = jsonQuery[qkey.toLowerCase()]);
+        }
+
+        if (pathnameKeys) {
+            pathnameKeys.fields.forEach(field =>
+                sysInfo[`p_${field.toLowerCase()}`] = parsePathname(pathnameKeys.schema, pathname)[field]);
         }
 
         this.sysInfo = {...sysInfo};

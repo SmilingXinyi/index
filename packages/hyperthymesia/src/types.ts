@@ -32,6 +32,14 @@ export enum Level {
 }
 
 /**
+ * The URL pathanme schema
+ */
+type pathnameSchema = {
+    fields: string[],
+    schema: string
+}
+
+/**
  * Options
  */
 export interface HyperthymesiaOptions {
@@ -43,7 +51,7 @@ export interface HyperthymesiaOptions {
     /**
      * Product ID
      */
-    pid: string,
+    pid: string | number,
 
     /**
      * Required cookie fields
@@ -51,7 +59,12 @@ export interface HyperthymesiaOptions {
     cookieKeys?: string[];
 
     /**
-     * Require query fields
+     * Required query fields
      */
     queryKeys?: string[];
+
+    /**
+     * Required params of pathname schmea
+     */
+    pathnameKeys?: pathnameSchema;
 }

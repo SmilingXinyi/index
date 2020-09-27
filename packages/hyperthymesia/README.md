@@ -2,11 +2,29 @@
 
 Logging library for web
 
-## Getting Started
-
-### Install package
+## Install package
 
 > npm i hyperthymesia
+
+## Getting Started
+
+### Hyperthymesia
+
+`opts`
+
+|name|type|description|
+|---|---|---|
+|targetUrl|string|request target URL|
+|pid|number or string|product id|
+|cookieKeys|string[]|default cookies used for send log|
+|queryKeys|string[]|default queries used for send log|
+|pathnameKeys|string[]|default pathname field used for send log|
+
+### Log
+
+### Warning
+
+### Error
 
 ### Example
 
@@ -15,9 +33,7 @@ import Hyperthymesia from 'hyperthymesia';
 
 const h = Hyperthymesia.getInstance({
     targetUrl: '',
-    pid: '',
-    cookieKeys: [],
-    queryKeys: []
+    pid: ''
 });
 
 // normal log
