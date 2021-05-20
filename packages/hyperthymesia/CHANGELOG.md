@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/SmilingXinyi/index/compare/v1.6.0...v1.7.0) (2021-05-20)
+
+
+### Features
+
+* 🎸 device info ([a8b2354](https://github.com/SmilingXinyi/index/commit/a8b2354232923b4b40cada470296053532d10d15))
+
 ## [1.6.0](https://github.com/SmilingXinyi/index/compare/v1.5.2...v1.6.0) (2020-09-27)
 
 
