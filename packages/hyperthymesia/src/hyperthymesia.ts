@@ -77,6 +77,18 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.cacheList = [];
         this.initialized = false;
 
+
+        const deviceInfo: any = {}
+
+        try {
+            deviceInfo.sx = window.screen.availWidth;
+            deviceInfo.sh = window.screen.availHeight;
+            deviceInfo.px = window.pageXOffset;
+            deviceInfo.py = window.pageYOffset;
+            deviceInfo.dr = window.devicePixelRatio;
+        }
+        catch (err) {}
+
         const sysInfo: any = {
             lid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
             pid: pid.toString()
@@ -104,6 +116,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             platform,
             language,
             ...jsonUA,
+            deviceInfo,
             perf: jsonPerf
         };
 

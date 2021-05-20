@@ -64,3 +64,5 @@ typings/
 .idea/
 lib/
 dist/
+
+.DS_Store
