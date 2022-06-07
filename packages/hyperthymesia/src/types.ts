@@ -3,26 +3,6 @@
  */
 
 /**
- * Log type
- */
-export enum Type {
-    Action,
-    Process,
-    Error
-}
-
-/**
- * Action state
- */
-export enum State {
-    Load,
-    Loaded,
-    Loading,
-    Faild,
-    Cancel
-}
-
-/**
  * Log level
  */
 export enum Level {
@@ -32,7 +12,7 @@ export enum Level {
 }
 
 /**
- * The URL pathanme schema
+ * The URL pathname schema
  */
 type pathnameSchema = {
     fields: string[],
@@ -43,15 +23,26 @@ type pathnameSchema = {
  * Options
  */
 export interface HyperthymesiaOptions {
-    /**
-     * Request url likes '/v.gif'
-     */
-    targetUrl: string;
 
     /**
      * Product ID
      */
-    pid: string | number,
+    pid: string | number;
+
+    /**
+     * Pathname for log likes '/v.gif'
+     */
+    targetUrl: string;
+
+    /**
+     * Pathname for warning
+     */
+    targetUrl4Warning?: string;
+
+    /**
+     * Pathname for fail
+     */
+    targetUrl4Failed?: string;
 
     /**
      * Required cookie fields
@@ -64,7 +55,12 @@ export interface HyperthymesiaOptions {
     queryKeys?: string[];
 
     /**
-     * Required params of pathname schmea
+     * Required params of pathname schema
      */
     pathnameKeys?: pathnameSchema;
+
+    /**
+     * Default arguments
+     */
+    defaultArgs?: {[key: string]: string | number | boolean};
 }

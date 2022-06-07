@@ -12,19 +12,24 @@ Logging library for web
 
 `opts`
 
-|name|type|description|
-|---|---|---|
-|targetUrl|string|request target URL|
-|pid|number or string|product id|
-|cookieKeys|string[]|default cookies used for send log|
-|queryKeys|string[]|default queries used for send log|
-|pathnameKeys|string[]|default pathname field used for send log|
+|name| type            |description|
+|---|-----------------|---|
+|targetUrl| string          |request target URL|
+|pid| number / string |product id|
+|cookieKeys| string[]        |default cookies used for send log|
+|queryKeys| string[]        |default queries used for send log|
+|pathnameKeys| string[]        |default pathname field used for send log|
 
-### Log
 
-### Warning
+## The `Action`
 
-### Error
+1. Log level
+
+2. Warning
+
+3. Error - highest priority
+
+## The `Level`
 
 ### Example
 
@@ -45,7 +50,7 @@ h.warn('demo2', {foo: 1});
 h.warn('demo3', Type.Error, State.Loaded);
 
 // error log
-h.error('demo4', Type.Error, State.Faild, 'hello world');
+h.error('demo4', Type.Error, State.Failed, 'hello world');
 ```
 
 ## Performance data
@@ -61,6 +66,13 @@ h.error('demo4', Type.Error, State.Faild, 'hello world');
 |ttfb|timeToFirstByte|
 |hs|headerSize|
 |dns|dnsLookupTime|
+
+## 默认值
+
+id: 10000 - 初始化
+
+
+1xxxx 系列为默认数据
 
 ## Todo
 

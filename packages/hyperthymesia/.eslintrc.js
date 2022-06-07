@@ -30,8 +30,8 @@ module.exports = {
         'prefer-rest-params': 'warn',
         'max-len': ['error', {code: 120, ignoreUrls: true}],
         'prefer-destructuring': ['warn', {
-            "array": false,
-            "object": true
+            'array': false,
+            'object': true
         }],
         'import/extensions': [
             'warn',
@@ -60,6 +60,7 @@ module.exports = {
         'consistent-return': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
         'import/no-unresolved': 'off',
-        'semi': 'off'
+        'semi': 'off',
+        '@typescript-eslint/no-var-requires': 'off'
     }
 };

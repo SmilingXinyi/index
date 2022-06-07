@@ -4,15 +4,14 @@
 
 import querystring from 'query-string';
 import {
-    HyperthymesiaOptions, Level, State, Type
+    HyperthymesiaOptions, Level
 } from './types';
 import HyperthymesiaInstance from './interfaces';
 import {
     parseCookie, parsePerformance, parseUserAgent, parsePathname
 } from './parser';
-import {genFingerID, genRandomInt} from './utils';
-
-export {State, Type} from './types';
+import {genRandomInt} from './utils';
+// import {genFingerID, genRandomInt} from './utils';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
@@ -23,12 +22,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
      * System infomations
      */
-    private sysInfo: any;
-
-    /**
-     * Log server url
-     */
-    private targetUrl: string;
+    private readonly sysInfo: any;
 
     /**
      * Log cache list
@@ -41,8 +35,28 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     private initialized: boolean;
 
     /**
+     * Default arguments
+     */
+    private defaultArgs: any;
+
+    /**
+     * Normal log
+     */
+    private readonly targetUrl: string;
+
+    /**
+     * Warning log
+     */
+    private targetUrl4Warning: string;
+
+    /**
+     * Failed log
+     */
+    private targetUrl4Failed: string;
+
+    /**
      * Service initial and get instance
-     * @param {Hyperthymesia} opts - options
+     * @param {Hyperthermia} opts - options
      */
     public static getInstance(opts: HyperthymesiaOptions): Hyperthymesia {
         if (!this.instance) {
@@ -57,7 +71,8 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      */
     constructor(opts: HyperthymesiaOptions) {
         const {
-            targetUrl, pid, cookieKeys, queryKeys, pathnameKeys
+            targetUrl, targetUrl4Warning, targetUrl4Failed,
+            pid, cookieKeys, queryKeys, pathnameKeys, defaultArgs
         } = opts;
         const {search: query, href, pathname} = window.location;
         const {userAgent, platform, language} = navigator;
@@ -74,8 +89,11 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         const jsonQuery = querystring.parse(query);
 
         this.targetUrl = targetUrl;
+        this.targetUrl4Warning = targetUrl4Warning || targetUrl;
+        this.targetUrl4Failed = targetUrl4Failed || targetUrl;
         this.cacheList = [];
         this.initialized = false;
+        this.defaultArgs = defaultArgs;
 
 
         const deviceInfo: any = {}
@@ -86,8 +104,9 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             deviceInfo.px = window.pageXOffset;
             deviceInfo.py = window.pageYOffset;
             deviceInfo.dr = window.devicePixelRatio;
+        } catch (err) {
+            console.warn(err);
         }
-        catch (err) {}
 
         const sysInfo: any = {
             lid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
@@ -128,9 +147,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      * @param info - initialization log infomation
      */
     private async initial(info: any) {
-        this.sysInfo.fin2 = await genFingerID();
+        try {
+            // this.sysInfo.fin2 = await genFingerID();
+        } catch (err) {
+            console.warn(err);
+        }
         this.initialized = true;
-        this.log('init', Type.Process, State.Loaded, {
+        this.log(10000, {
             ...info
         });
     }
@@ -138,43 +161,28 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
      * Normal log
      * @param id - log ID
-     * @param t - log type
-     * @param s - log state
      * @param data - payload data
      */
-    log(id: string | number, t: Type, s: State, data: any = null): void {
-        if (arguments.length === 2 && typeof t !== 'number') {
-            return this.send(Level.Log, id, t);
-        }
-        this.send(Level.Log, id, data, t, s);
+    log(id: number, data: any = null): void {
+        this.send(Level.Log, id, data);
     }
 
     /**
      * Warning log
      * @param id - log ID
-     * @param t - log type
-     * @param s - log state
      * @param data - payload data
      */
-    warn(id: string | number, t: Type, s: State, data: any = null): void {
-        if (arguments.length === 2 && typeof t !== 'number') {
-            return this.send(Level.Warn, id, t);
-        }
-        this.send(Level.Warn, id, data, t, s);
+    warn(id: number, data: any = null): void {
+        this.send(Level.Warn, id, data);
     }
 
     /**
      * Failure log
      * @param id - log ID
-     * @param t - log type
-     * @param s - log state
      * @param data - payload data
      */
-    error(id: string | number, t: Type, s: State, data: any = null): void {
-        if (arguments.length === 2 && typeof t !== 'number') {
-            return this.send(Level.Error, id, t);
-        }
-        this.send(Level.Error, id, data, t, s);
+    error(id: number, data: any = null): void {
+        this.send(Level.Error, id, data);
     }
 
     /**
@@ -182,16 +190,12 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      * @param lv - log level
      * @param id - log ID
      * @param data - data
-     * @param t - log type
-     * @param s - log state
      * @param skipCache - ~~wait for initialization to complete and start send cachelist~~
      */
     private send(
         lv: Level,
         id: string | number,
         data: any,
-        t: Type = Type.Action,
-        s: State = State.Load,
         skipCache?: boolean
     ): void {
         if (this.initialized) {
@@ -215,10 +219,9 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         const payload: any = {
             lv,
             id,
-            t,
-            s,
             d: Date.now(),
-            i: JSON.stringify(this.sysInfo)
+            i: JSON.stringify(this.sysInfo),
+            o: JSON.stringify(this.defaultArgs)
         };
 
         if (data) {

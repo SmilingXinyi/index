@@ -2,7 +2,7 @@
  * Created by SmilingXinyi <smilingxinyi@gmail.com> on 2020/9/27
  */
 
-import Hyperthymesia, {State, Type} from '../src/hyperthymesia';
+import Hyperthymesia from '../src/hyperthymesia';
 
 describe('Hyperthymesia initialization', () => {
     test('should return new instance', () => {
