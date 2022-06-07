@@ -75,9 +75,13 @@ export function parseUserAgent(userAgent: string): any {
         browser = 'Other';
     }
 
-    const mobileDevice = (('ontouchstart' in window)
-        || (navigator.maxTouchPoints > 0)
-        || (navigator.msMaxTouchPoints > 0));
+    let mobileDevice = false;
+    if (window) {
+        mobileDevice = (('ontouchstart' in window)
+            || (navigator.maxTouchPoints > 0)
+            || (navigator.msMaxTouchPoints > 0));
+    }
+
 
     return {
         os,

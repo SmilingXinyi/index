@@ -63,4 +63,9 @@ export interface HyperthymesiaOptions {
      * Default arguments
      */
     defaultArgs?: {[key: string]: string | number | boolean};
+
+    /**
+     * Exec function
+     */
+    execFunc?: (url: string) => void
 }

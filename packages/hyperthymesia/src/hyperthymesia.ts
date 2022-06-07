@@ -5,7 +5,9 @@
 import querystring from 'query-string';
 import {HyperthymesiaOptions, Level} from './types';
 import HyperthymesiaInstance from './interfaces';
-import {parseCookie, parsePathname, parsePerformance, parseUserAgent} from './parser';
+import {
+    parseCookie, parsePathname, parsePerformance, parseUserAgent
+} from './parser';
 
 import {genFingerID, genRandomInt} from './utils';
 
@@ -51,6 +53,12 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     private targetUrl4Failed: string;
 
     /**
+     * Request function
+     * @protected
+     */
+    protected execFunc?: (url: string) => void;
+
+    /**
      * Service initial and get instance
      * @param {Hyperthermia} opts - options
      */
@@ -68,11 +76,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     constructor(opts: HyperthymesiaOptions) {
         const {
             targetUrl, targetUrl4Warning, targetUrl4Failed,
-            pid, cookieKeys, queryKeys, pathnameKeys, defaultArgs
+            pid, cookieKeys, queryKeys, pathnameKeys, defaultArgs,
+            execFunc
         } = opts;
-        const {search: query, href, pathname} = window.location;
-        const {userAgent, platform, language} = navigator;
-        const {cookie} = document;
+        const {search: query, href, pathname} = (window && window.location)
+            || (defaultArgs && defaultArgs.location) || {};
+        const {userAgent, platform, language} = navigator || (defaultArgs && defaultArgs.navigator) || {};
+        const {cookie} = document || (defaultArgs && defaultArgs.document) || {};
         let initialPerformance;
         try {
             initialPerformance = performance.getEntriesByType('navigation')[0]
@@ -90,7 +100,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         this.cacheList = [];
         this.initialized = false;
         this.defaultArgs = defaultArgs;
-
+        this.execFunc = execFunc;
 
         const deviceInfo: any = {}
 
@@ -230,15 +240,29 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             payload.p = JSON.stringify(data);
         }
 
+        const url = `${target}?${
+            querystring.stringify(
+                payload, {
+                    skipEmptyString: true
+                }
+            )
+        }`;
+
+        this.exec(url);
+    }
+
+    /**
+     * Request in Image API
+     * @param url - Image url
+     */
+    // eslint-disable-next-line class-methods-use-this
+    private exec(url: string): void {
+        if (this.execFunc) {
+            this.execFunc(url);
+        }
         const img = new Image();
         const timer = setTimeout(() => {
-            img.src = `${target}?${
-                querystring.stringify(
-                    payload, {
-                        skipEmptyString: true
-                    }
-                )
-            }`;
+            img.src = url;
         }, 0);
 
         img.onload = img.onerror = img.onabort = () => {
