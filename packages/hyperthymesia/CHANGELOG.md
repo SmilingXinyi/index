@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/SmilingXinyi/index/compare/v1.7.0...v1.8.0) (2022-06-07)
+
+
+### Features
+
+* upgrade hyperthymesia module ([13dcf64](https://github.com/SmilingXinyi/index/commit/13dcf642dbfbcbb93e7e0c6e38bc8eab3d240400))
+
+
+### Bug Fixes
+
+* clear types of Type, State ([b48f16f](https://github.com/SmilingXinyi/index/commit/b48f16ff0b6399a7c4e4e36923e43a65f687c796))
+
 ## [1.7.0](https://github.com/SmilingXinyi/index/compare/v1.6.0...v1.7.0) (2021-05-20)
 
 
