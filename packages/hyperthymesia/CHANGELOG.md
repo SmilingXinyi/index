@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/SmilingXinyi/index/compare/v1.8.1...v1.9.0) (2022-06-07)
+
+
+### Features
+
+* support miniapp ([b709e69](https://github.com/SmilingXinyi/index/commit/b709e69f181e1e4754b10c14ae444aa4f984dbea))
+
 ### [1.8.1](https://github.com/SmilingXinyi/index/compare/v1.8.0...v1.8.1) (2022-06-07)
 
 ## [1.8.0](https://github.com/SmilingXinyi/index/compare/v1.7.0...v1.8.0) (2022-06-07)
