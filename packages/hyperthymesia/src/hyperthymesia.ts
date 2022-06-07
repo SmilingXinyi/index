@@ -3,15 +3,11 @@
  */
 
 import querystring from 'query-string';
-import {
-    HyperthymesiaOptions, Level
-} from './types';
+import {HyperthymesiaOptions, Level} from './types';
 import HyperthymesiaInstance from './interfaces';
-import {
-    parseCookie, parsePerformance, parseUserAgent, parsePathname
-} from './parser';
-import {genRandomInt} from './utils';
-// import {genFingerID, genRandomInt} from './utils';
+import {parseCookie, parsePathname, parsePerformance, parseUserAgent} from './parser';
+
+import {genFingerID, genRandomInt} from './utils';
 
 export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
@@ -148,7 +144,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
      */
     private async initial(info: any) {
         try {
-            // this.sysInfo.fin2 = await genFingerID();
+            this.sysInfo.fin2 = await genFingerID();
         } catch (err) {
             console.warn(err);
         }
@@ -214,7 +210,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             return;
         }
 
-        const target = this.targetUrl;
+        let target = this.targetUrl;
+
+        if (lv === Level.Warn) {
+            target = this.targetUrl4Warning
+        } else if (lv === Level.Error) {
+            target = this.targetUrl4Failed
+        }
 
         const payload: any = {
             lv,
