@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/SmilingXinyi/index/compare/v1.10.0...v1.10.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* new version ([15d327e](https://github.com/SmilingXinyi/index/commit/15d327e0eab4f73c6ef582db173aba664b1f0a44))
+
 ## [1.10.0](https://github.com/SmilingXinyi/index/compare/v1.9.0...v1.10.0) (2022-06-08)
 
 
