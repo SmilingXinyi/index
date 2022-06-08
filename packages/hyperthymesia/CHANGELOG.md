@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/SmilingXinyi/index/compare/v1.9.0...v1.10.0) (2022-06-08)
+
+
+### Features
+
+* upgrade fileds name ([adb9636](https://github.com/SmilingXinyi/index/commit/adb9636ccb436297bcde43556c77583aa6b17249))
+
 ## [1.9.0](https://github.com/SmilingXinyi/index/compare/v1.8.1...v1.9.0) (2022-06-07)
 
 
