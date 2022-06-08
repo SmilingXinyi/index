@@ -115,7 +115,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         }
 
         const sysInfo: any = {
-            lid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
+            rid: jsonQuery.lid || Date.now().toString() + genRandomInt(100000, 999999),
             pid: pid.toString()
         };
 
@@ -194,13 +194,13 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
     /**
      * Send log
      * @param lv - log level
-     * @param id - log ID
+     * @param lid - log ID
      * @param data - data
      * @param skipCache - ~~wait for initialization to complete and start send cachelist~~
      */
     private send(
         lv: Level,
-        id: string | number,
+        lid: number,
         data: any,
         skipCache?: boolean
     ): void {
@@ -228,12 +228,24 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
             target = this.targetUrl4Failed
         }
 
+        const {
+            _location, _navigator, _document, ...args
+        } = this.defaultArgs;
+
+        const {
+            pid,
+            rid,
+            ...sysInfo
+        } = this.sysInfo;
+
         const payload: any = {
             lv,
-            id,
+            lid,
+            rid,
+            pid,
             d: Date.now(),
-            i: JSON.stringify(this.sysInfo),
-            o: JSON.stringify(this.defaultArgs)
+            i: JSON.stringify(sysInfo),
+            o: JSON.stringify(args)
         };
 
         if (data) {
