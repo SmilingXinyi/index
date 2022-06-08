@@ -229,7 +229,10 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         }
 
         const {
-            _location, _navigator, _document, ...args
+            _location,
+            _navigator,
+            _document,
+            ...args
         } = this.defaultArgs;
 
         const {
