@@ -15,7 +15,8 @@
         "lint:fix": "eslint --fix src/**",
         "test": "jest",
         "commit": "npx git-cz",
-        "release": "standard-version"
+        "release": "standard-version",
+        "publish": "npm publish"
     },
     "directories": {
         "lib": "lib",
