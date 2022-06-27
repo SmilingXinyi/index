@@ -207,7 +207,7 @@ export default class Hyperthymesia implements HyperthymesiaInstance {
         if (this.initialized) {
             if (!skipCache && this.cacheList.length > 0) {
                 // @ts-ignore
-                if (window.requestIdleCallback) {
+                if (window && window.requestIdleCallback) {
                     // @ts-ignore
                     window.requestIdleCallback(() => this.send.apply(this, [...this.cacheList.shift(), true]))
                 } else {
